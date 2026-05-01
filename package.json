@@ -1,0 +1,24 @@
+{
+  "name": "projeto-biblioteca-pessoal---gabriel",
+  "version": "1.0.0",
+  "description": "Projeto Integrador do segundo semestre da FATEC. Desenvolvimento de uma biblioteca pessoal para a aplicação dos conhecimentos adquiridos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabiru-tech/Projeto-Biblioteca-Pessoal---Gabriel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Gabiru-tech/Projeto-Biblioteca-Pessoal---Gabriel/issues"
+  },
+  "homepage": "https://github.com/Gabiru-tech/Projeto-Biblioteca-Pessoal---Gabriel#readme",
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}
