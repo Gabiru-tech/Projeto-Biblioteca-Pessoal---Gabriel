@@ -268,3 +268,71 @@ function exibirEstatisticas(): void {
   console.log(`Livro melhor avaliado: ${livroMaiorAvaliacao()}`);
   console.log(`Total de páginas lidas: ${totalPaginasLidas()}`);
 }
+
+exibirBiblioteca();
+
+console.log('\n=== ADICIONANDO LIVROS ===');
+adicionarLivro('Capitães da Areia', 'Jorge Amado', 1937, 280);
+adicionarLivro('A Revolução dos Bichos', 'George Orwell', 1945, 152);
+
+exibirBiblioteca();
+
+console.log('\n=== REMOVENDO LIVRO ===');
+removerLivro(5);
+
+exibirBiblioteca();
+
+console.log('\n=== BUSCA POR TÍTULO ===');
+const resultadoBusca: number[] = buscarPorTitulo('hobbit');
+console.log(`Índices encontrados: ${resultadoBusca.join(', ')}`);
+
+console.log('\n=== LISTAR POR AUTOR ===');
+const livrosDoAutor: string[] = listarPorAutor('George Orwell');
+console.log(livrosDoAutor);
+
+console.log('\n=== MARCAR COMO LIDO ===');
+marcarComoLido(2, 5);
+
+console.log('\n=== LIVROS LIDOS ===');
+console.log(listarLidos());
+
+console.log('\n=== LIVROS PENDENTES ===');
+console.log(listarPendentes());
+
+exibirEstatisticas();
+
+function exibirPorDecada(): void {
+  console.log('\n=== POR DÉCADA ===');
+
+  const decadas: number[] = [];
+
+  for (let indice: number = 0; indice < anos.length; indice++) {
+    const ano: number = anos[indice]!;
+    const decada: number = Math.floor(ano / 10) * 10;
+
+    if (!decadas.includes(decada)) {
+      decadas.push(decada);
+    }
+  }
+
+  decadas.sort((a: number, b: number): number => a - b);
+
+  for (const decada of decadas) {
+    const livrosDaDecada: string[] = [];
+
+    for (let indice: number = 0; indice < anos.length; indice++) {
+      const ano: number = anos[indice]!;
+      const titulo: string = titulos[indice]!;
+
+      const decadaDoLivro: number = Math.floor(ano / 10) * 10;
+
+      if (decadaDoLivro === decada) {
+        livrosDaDecada.push(titulo);
+      }
+    }
+
+    console.log(`${decada}s: ${livrosDaDecada.join(', ')}`);
+  }
+}
+
+exibirPorDecada();
