@@ -175,3 +175,96 @@ marcarComoLido(2, 5);
 console.log(listarLidos());
 console.log(listarPendentes());
 
+// Função para calcular o total de livros na biblioteca
+function totalLivros(): number {
+  return titulos.length;
+}
+
+// Função para calcular o total de livros lidos
+function totalLidos(): number {
+  return lido.filter((foiLido: boolean): boolean => foiLido === true).length;
+}
+
+// Função para calcular o percentual de livros lidos em relação ao total de livros
+function percentualLidos(): number {
+  if (totalLivros() === 0) {
+    return 0;
+  }
+
+  // Calcula o percentual de livros lidos e retorna o resultado
+  return (totalLidos() / totalLivros()) * 100;
+}
+
+// Função para calcular a média das avaliações dos livros lidos
+function mediaAvaliacoes(): number {
+  const avaliacoesDosLidos: number[] = avaliacoes.filter(
+    (avaliacao: number): boolean => avaliacao > 0,
+  );
+
+  // Se não houver livros lidos, retorna 0 para evitar divisão por zero
+  if (avaliacoesDosLidos.length === 0) {
+    return 0;
+  }
+
+  // Calcula a soma das avaliações dos livros lidos
+  const soma: number = avaliacoesDosLidos.reduce(
+    (total: number, avaliacao: number): number => total + avaliacao,
+    0,
+  );
+
+  return soma / avaliacoesDosLidos.length;
+}
+
+// Função para encontrar o título do livro com a maior avaliação entre os livros lidos
+function livroMaiorAvaliacao(): string {
+  const indicesLidos: number[] = [];
+
+  // Encontra os índices dos livros que foram lidos
+  lido.forEach((foiLido: boolean, indice: number): void => {
+    if (foiLido) {
+      indicesLidos.push(indice);
+    }
+  });
+
+  if (indicesLidos.length === 0) {
+    return 'Nenhum livro lido';
+  }
+
+  // Encontra o índice do livro com a maior avaliação entre os livros lidos
+  const indiceMelhorLivro: number = indicesLidos.reduce(
+    (melhorIndice: number, indiceAtual: number): number => {
+      if (avaliacoes[indiceAtual] > avaliacoes[melhorIndice]) {
+        return indiceAtual;
+      }
+
+      return melhorIndice;
+    },
+  );
+// Retorna o título do livro com a maior avaliação 
+  return titulos[indiceMelhorLivro];
+}
+
+// Função para calcular o total de páginas lidas
+function totalPaginasLidas(): number {
+  return paginas.reduce(
+    (total: number, quantidadePaginas: number, indice: number): number => {
+      if (lido[indice]) {
+        return total + quantidadePaginas;
+      }
+
+      return total;
+    },
+    0,
+  );
+}
+
+
+// Função para exibir as estatísticas da biblioteca
+function exibirEstatisticas(): void {
+  console.log('\n=== ESTATÍSTICAS ===');
+  console.log(`Total de livros: ${totalLivros()}`);
+  console.log(`Livros lidos: ${totalLidos()} (${percentualLidos().toFixed(2)}%)`);
+  console.log(`Média das avaliações: ${mediaAvaliacoes().toFixed(2)}`);
+  console.log(`Livro melhor avaliado: ${livroMaiorAvaliacao()}`);
+  console.log(`Total de páginas lidas: ${totalPaginasLidas()}`);
+}
