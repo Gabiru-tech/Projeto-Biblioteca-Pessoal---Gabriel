@@ -226,6 +226,7 @@ function livroMaiorAvaliacao(): string {
     }
   });
 
+  // Se não houver livros lidos, retorna uma mensagem indicando que nenhum livro foi lido
   if (indicesLidos.length === 0) {
     return 'Nenhum livro lido';
   }
@@ -271,68 +272,86 @@ function exibirEstatisticas(): void {
 
 exibirBiblioteca();
 
+// Testes: Exibe as estatísticas da biblioteca
 console.log('\n=== ADICIONANDO LIVROS ===');
 adicionarLivro('Capitães da Areia', 'Jorge Amado', 1937, 280);
 adicionarLivro('A Revolução dos Bichos', 'George Orwell', 1945, 152);
 
 exibirBiblioteca();
 
+// Teste: Remove um livro e exibe a biblioteca atualizada
 console.log('\n=== REMOVENDO LIVRO ===');
 removerLivro(5);
 
 exibirBiblioteca();
 
+// Testes: Busca por título, lista por autor, marca como lido, lista lidos e pendentes, exibe estatísticas
 console.log('\n=== BUSCA POR TÍTULO ===');
 const resultadoBusca: number[] = buscarPorTitulo('hobbit');
 console.log(`Índices encontrados: ${resultadoBusca.join(', ')}`);
 
+// Teste: Busca por um título que não existe para verificar o comportamento do sistema
 console.log('\n=== LISTAR POR AUTOR ===');
 const livrosDoAutor: string[] = listarPorAutor('George Orwell');
 console.log(livrosDoAutor);
 
+// Teste: Lista por um autor que não existe para verificar o comportamento do sistema
 console.log('\n=== MARCAR COMO LIDO ===');
 marcarComoLido(2, 5);
 
+// Teste: Tenta marcar um livro como lido com um índice inválido para verificar o tratamento de erros
 console.log('\n=== LIVROS LIDOS ===');
 console.log(listarLidos());
 
+// Teste: Verifica se o livro marcado como lido aparece na lista de livros lidos
 console.log('\n=== LIVROS PENDENTES ===');
 console.log(listarPendentes());
 
+// Teste: Verifica se o livro marcado como lido não aparece na lista de livros pendentes
 exibirEstatisticas();
 
+// Função para exibir os livros organizados por década de publicação
 function exibirPorDecada(): void {
   console.log('\n=== POR DÉCADA ===');
 
+  // Cria um array para armazenar as décadas únicas encontradas nos anos de publicação dos livros
   const decadas: number[] = [];
 
+  // Itera sobre os anos de publicação dos livros para identificar as décadas correspondentes e armazená-las no array de décadas
   for (let indice: number = 0; indice < anos.length; indice++) {
     const ano: number = anos[indice]!;
     const decada: number = Math.floor(ano / 10) * 10;
 
+    // Verifica se a década já está presente no array de décadas e, se não estiver, adiciona-a
     if (!decadas.includes(decada)) {
       decadas.push(decada);
     }
   }
 
+  // Ordena as décadas em ordem crescente para exibição organizada
   decadas.sort((a: number, b: number): number => a - b);
 
+  // Itera sobre as décadas identificadas para exibir os livros correspondentes a cada década
   for (const decada of decadas) {
     const livrosDaDecada: string[] = [];
 
+    // Itera sobre os anos de publicação dos livros para verificar quais livros pertencem à década atual do loop e adicioná-los à lista de livros da década
     for (let indice: number = 0; indice < anos.length; indice++) {
       const ano: number = anos[indice]!;
       const titulo: string = titulos[indice]!;
 
+      // Calcula a década do livro com base no ano de publicação 
       const decadaDoLivro: number = Math.floor(ano / 10) * 10;
 
+      // Verifica se a década do livro corresponde à década atual do loop e, se sim, adiciona o título à lista de livros da década
       if (decadaDoLivro === decada) {
         livrosDaDecada.push(titulo);
       }
     }
-
+  // Exibe a década e os títulos dos livros correspondentes a essa década, separados por vírgula
     console.log(`${decada}s: ${livrosDaDecada.join(', ')}`);
   }
 }
 
+// Teste: Exibe os livros organizados por década de publicação
 exibirPorDecada();
