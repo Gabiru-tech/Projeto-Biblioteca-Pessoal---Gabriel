@@ -131,6 +131,47 @@ return titulos.filter((titulo: string, indice: number): boolean => {
     return autores[indice]?.toLowerCase().includes(autorFormatado) ?? false;
   });
 }
-
+// Testes: Busca por título e lista por autor
 console.log(buscarPorTitulo('hobbit'));
 console.log(listarPorAutor('George Orwell'));
+
+// Função para marcar um livro como lido e atribuir uma avaliação
+function marcarComoLido(indice: number, avaliacao: number): void {
+  if (!indiceValido(indice)) {
+    console.log('Erro: índice inválido.');
+    return;
+  }
+
+  // Avalia se a avaliação está entre 1 e 5
+  if (avaliacao < 1 || avaliacao > 5) {
+    console.log('Erro: a avaliação deve estar entre 1 e 5.');
+    return;
+  }
+
+  // Marca o livro como lido e atribui a avaliação correspondente
+  lido[indice] = true;
+  avaliacoes[indice] = avaliacao;
+
+  // Exibe uma mensagem de sucesso indicando que o livro foi marcado como lido e a avaliação atribuída
+  console.log(`Livro "${titulos[indice]}" marcado como lido.`);
+}
+
+// Função para listar os títulos dos livros lidos
+function listarLidos(): string[] {
+  return titulos.filter((titulo: string, indice: number): boolean => {
+    return lido[indice] === true;
+  });
+}
+
+// Função para listar os títulos dos livros pendentes (não lidos)
+function listarPendentes(): string[] {
+  return titulos.filter((titulo: string, indice: number): boolean => {
+    return lido[indice] === false;
+  });
+}
+
+// Testes: Marca um livro como lido, lista os livros lidos e os livros pendentes
+marcarComoLido(2, 5);
+console.log(listarLidos());
+console.log(listarPendentes());
+
