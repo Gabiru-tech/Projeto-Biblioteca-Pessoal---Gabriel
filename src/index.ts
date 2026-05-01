@@ -107,3 +107,30 @@ removerLivro(2);
 exibirBiblioteca()
 
 
+// Busca por título
+function buscarPorTitulo(termo: string): number[] {
+  const termoFormatado: string = termo.toLowerCase();
+  const indicesEncontrados: number[] = [];
+
+// Busca por títulos que contenham o termo formatado e armazena os índices encontrados
+  titulos.forEach((titulo: string, indice: number): void => {
+    if (titulo.toLowerCase().includes(termoFormatado)) {
+      indicesEncontrados.push(indice);
+    }
+  });
+
+  return indicesEncontrados;
+}
+
+// Lista os títulos dos livros escritos por um autor específico
+function listarPorAutor(autor: string): string[] {
+  const autorFormatado: string = autor.toLowerCase();
+
+  // Filtra os títulos dos livros cujo autor correspondente contenha o termo formatado
+return titulos.filter((titulo: string, indice: number): boolean => {
+    return autores[indice]?.toLowerCase().includes(autorFormatado) ?? false;
+  });
+}
+
+console.log(buscarPorTitulo('hobbit'));
+console.log(listarPorAutor('George Orwell'));
